@@ -1,8 +1,24 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
-  output: 'export'
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+	headers: async () => {
+		return [
+			{
+				source: "/(.*)",
+				headers: [
+					{
+						key: "X-Frame-Options",
+						value: "DENY",
+					},
+				],
+			},
+		];
+	},
+	reactStrictMode: true,
+	output: "export",
+	distDir: "_static",
+	images: {
+		unoptimized: true,
+	},
 };
 
-export default nextConfig;
+module.exports = nextConfig;
